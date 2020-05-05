@@ -62,8 +62,8 @@ def q8
   programming_languages = %w(ruby php python javascript)
 
   # 以下に回答を記載
-  programming_languages.map!{|item|item.capitalize}
-  upper_case_programming_languages  = programming_languages.map{|item|item.upcase}
+  programming_languages.map!(&:capitalize)
+  upper_case_programming_languages  = programming_languages.map(&:upcase)
   # 以下は変更しないで下さい
   p programming_languages
   p upper_case_programming_languages
@@ -111,8 +111,7 @@ def q13
   update_data = { age: 32, address: "沖縄" }
 
   # 以下に回答を記載
-  user_data.merge!(update_data)
-  puts user_data
+  puts user_data.merge!(update_data)
 end
 
 def q14
@@ -129,15 +128,15 @@ def q15
   data2 = { name: "yamada", hobby: "baseball", role: "normal" }
 
   # 以下に回答を記載
-  def judge
-    if include?(:age)
+  def judge(params)
+    if params[:age]
       puts "OK"
     else
       puts "NG"
     end
   end
-  data1.judge
-  data2.judge
+  judge(data1)
+  judge(data2)
 end
 
 def q16
@@ -149,7 +148,7 @@ def q16
   ]
 
   # 以下に回答を記載
-  users.each{}
+  users.each{|user|  puts "私の名前は#{user[:name]}です。年齢は#{user[:age]}歳です。"}
 end
 
 class UserQ17
