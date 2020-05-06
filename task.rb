@@ -118,8 +118,7 @@ def q14
   data = { name: "satou", age: 33, address: "saitama", hobby: "soccer", email: "hoge@fuga.com" }
 
   # 以下に回答を記載
-  data1=[]
-  data.each{|key,value|data1<<key}
+  data1=data.keys
   puts data1
 end
 
@@ -128,15 +127,8 @@ def q15
   data2 = { name: "yamada", hobby: "baseball", role: "normal" }
 
   # 以下に回答を記載
-  def judge(params)
-    if params[:age]
-      puts "OK"
-    else
-      puts "NG"
-    end
-  end
-  judge(data1)
-  judge(data2)
+  puts data1[:age]? "OK" : "NG"
+  puts data2[:age]? "OK" : "NG"
 end
 
 def q16
