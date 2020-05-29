@@ -5,7 +5,7 @@ def q1
   names = ["田中", "佐藤", "佐々木", "高橋"]
 
   # 以下に回答を記載
-   p names<<"斎藤"
+  puts names << "斎藤"
 end
 
 def q2
@@ -13,7 +13,7 @@ def q2
   array2 = ["bird", "bat", "tiger"]
 
   # 以下に回答を記載
-  p array1 + array2
+  puts array1+array2
 end
 
 def q3
@@ -37,16 +37,15 @@ def q5
   array2 = [1, 5, 8, 10]
 
   # 以下に回答を記載
-  puts  array1.empty?
-  puts  array2.empty?
+  puts array1.empty?
+  puts array2.empty?
 end
 
 def q6
   numbers1 = [1, 2, 3, 4, 5]
 
   # 以下に回答を記載
-  numbers2=numbers1.map {|m| m*10}
-  p numbers2
+  p numbers1.map!{|m|m*10}
 end
 
 def q7
@@ -63,7 +62,7 @@ def q8
 
   # 以下に回答を記載
   programming_languages.map!(&:capitalize)
-  upper_case_programming_languages  = programming_languages.map(&:upcase)
+  upper_case_programming_languages=programming_languages.map(&:upcase)
   # 以下は変更しないで下さい
   p programming_languages
   p upper_case_programming_languages
@@ -73,30 +72,22 @@ def q9
   names = ["田中", "佐藤", "佐々木", "高橋"]
 
   # 以下に回答を記載
-  names.each.with_index(1) do |member,i|
-    puts "会員No.#{i} #{member}さん"
-  end
+  names.each.with_index(1){|member,i| puts "会員No.#{i} #{member}さん"}
 end
 
 def q10
   foods = %w(いか たこ うに しゃけ うにぎり うに軍艦 うに丼)
 
   # 以下に回答を記載
-  foods.each do |item|
-    if item.include?("うに")
-      puts "好物です"
-    else
-      puts "まぁまぁ好きです"
-    end
-  end
+  foods.each {|food|puts food.include?("うに")? "好物です":"まぁまぁ好きです"}
 end
 
 def q11
   sports = ["サッカー", "バスケ", "野球", ["フットサル", "野球"], "水泳", "ハンドボール", ["卓球", "サッカー", "ボルダリング"]]
 
   # 以下に回答を記載
-  puts  "ユーザーの趣味一覧"
-  sports.flatten!.uniq!.each.with_index(1){|item,i|puts "No#{i} #{item}"}
+  puts "ユーザーの趣味一覧"
+  sports.flatten.uniq.each.with_index(1) {|m,i| puts "No.#{i} #{m}"}
 end
 
 def q12
@@ -111,15 +102,15 @@ def q13
   update_data = { age: 32, address: "沖縄" }
 
   # 以下に回答を記載
-  puts user_data.merge!(update_data)
+  p user_data.merge!(update_data)
 end
 
 def q14
   data = { name: "satou", age: 33, address: "saitama", hobby: "soccer", email: "hoge@fuga.com" }
 
   # 以下に回答を記載
-  data1=data.keys
-  puts data1
+  new_data=data.keys
+  p new_data
 end
 
 def q15
@@ -127,8 +118,8 @@ def q15
   data2 = { name: "yamada", hobby: "baseball", role: "normal" }
 
   # 以下に回答を記載
-  puts data1[:age]? "OK" : "NG"
-  puts data2[:age]? "OK" : "NG"
+  puts data1.include?(:age)? "OK":"NG"
+  puts data2.include?(:age)? "OK":"NG"
 end
 
 def q16
@@ -140,12 +131,23 @@ def q16
   ]
 
   # 以下に回答を記載
-  users.each{|user|  puts "私の名前は#{user[:name]}です。年齢は#{user[:age]}歳です。"}
+  users.each{|user|puts "私の名前は#{user[:name]}です。年齢は#{user[:age]}歳です。"}
 end
 
 class UserQ17
   # 以下に回答を記載
-
+  def initialize(name:,age:,gender:)
+    @name=name
+    @age=age
+    @gender=gender
+  end
+  def info
+    puts  <<~EOS
+      名前：#{@name}
+      年齢：#{@age}
+      性別：#{@gender}
+    EOS
+  end
 end
 
 def q17
@@ -160,7 +162,14 @@ end
 
 class UserQ18
   # 以下に回答を記載
-
+  
+  def initialize(name:,age:)
+    @name=name
+    @age=age
+  end
+  def introduce
+    @age>=20? "こんにちは，#{@name}と申します。宜しくお願いいたします。":"はいさいまいど〜，#{@name}です！！！"
+  end
 end
 
 def q18
@@ -174,8 +183,8 @@ end
 
 class Item
   # 以下を修正して下さい
-
-  def initialize(name)
+  attr_accessor :name
+  def initialize(name:)
     @name = name
   end
 end
@@ -188,12 +197,30 @@ end
 
 class UserQ20
   # 以下に回答を記載
-
+  attr_accessor :name,:age
+  def initialize(name:,age:)
+    @name=name
+    @age=age
+  end
 end
 
 class Zoo
   # 以下に回答を記載
-
+  def initialize(name:,entry_fee:)
+    @name=name
+    @entry_fee=entry_fee
+  end
+  def info_entry_fee(user)
+    if user.age<=5
+      puts "#{user.name}さんの入場料金は #{@entry_fee[:infant]} 円です。"
+    elsif user.age<=12
+      puts "#{user.name}さんの入場料金は #{@entry_fee[:children]} 円です。"
+    elsif user.age<=64
+      puts "#{user.name}さんの入場料金は #{@entry_fee[:adult]} 円です。"
+    elsif user.age<=120
+      puts "#{user.name}さんの入場料金は #{@entry_fee[:senior]} 円です。"
+    end
+  end
 end
 
 
