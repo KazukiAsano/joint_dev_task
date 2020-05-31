@@ -183,7 +183,7 @@ end
 
 class Item
   # 以下を修正して下さい
-  attr_accessor :name
+  attr_reader :name
   def initialize(name:)
     @name = name
   end
@@ -211,13 +211,18 @@ class Zoo
     @entry_fee=entry_fee
   end
   def info_entry_fee(user)
-    if user.age<=5
+    @entry_fee[:infant]=0
+    @entry_fee[:children]=400
+    @entry_fee[:adult]=800
+    @entry_fee[:senior]=500
+    case user.age
+    when 0..5 then
       puts "#{user.name}さんの入場料金は #{@entry_fee[:infant]} 円です。"
-    elsif user.age<=12
+    when 6..12 then
       puts "#{user.name}さんの入場料金は #{@entry_fee[:children]} 円です。"
-    elsif user.age<=64
+    when 13..64 then
       puts "#{user.name}さんの入場料金は #{@entry_fee[:adult]} 円です。"
-    elsif user.age<=120
+    when 65..120 then
       puts "#{user.name}さんの入場料金は #{@entry_fee[:senior]} 円です。"
     end
   end
